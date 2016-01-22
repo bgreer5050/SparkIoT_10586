@@ -193,3 +193,4 @@ C:\Users\admin\OneDrive\Repos\SparkRunTime_10586_V1.0\SparkRunTime_10586_V1.0\ob
 C:\Users\admin\OneDrive\Repos\SparkRunTime_10586_V1.0\SparkRunTime_10586_V1.0\obj\ARM\Debug\qualifiers.txt.intermediate
 C:\Users\admin\OneDrive\Repos\SparkRunTime_10586_V1.0\SparkRunTime_10586_V1.0\obj\ARM\Debug\MultipleQualifiersPerDimensionFound.txt
 C:\Users\admin\OneDrive\Repos\SparkRunTime_10586_V1.0\SparkRunTime_10586_V1.0\obj\ARM\Debug\ProjectArchitectures.txt
+C:\Users\admin\OneDrive\Repos\SparkRunTime_10586_V1.0\SparkRunTime_10586_V1.0\obj\ARM\Debug\SparkRunTime_10586_V1.0.csprojResolveAssemblyReference.cache
