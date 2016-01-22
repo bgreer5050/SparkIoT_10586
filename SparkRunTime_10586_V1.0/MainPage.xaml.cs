@@ -212,6 +212,32 @@ namespace SparkRunTime_10586_V1._0
 
         }
 
+        private async void btnTest_Click(object sender, RoutedEventArgs e)
+        {
+            int result = await AccessTheWebAsync();
+
+        }
+
+        async Task<int> AccessTheWebAsync()
+        {
+            System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
+
+            Task<string> getStringTask = client.GetStringAsync(@"http://yahoo.com");
+            string urlContents = await getStringTask;
+
+            return urlContents.Length;
+
+        }
+
+        private void btnSetMachineStatusRUN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSetMachineStatusDOWN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         private void TimerDateTime_Tick1(object sender, object e)
         {
