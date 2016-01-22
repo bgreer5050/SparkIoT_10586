@@ -76,7 +76,7 @@ namespace SparkRunTime_10586_V1._0
             try
             {
                 Configuration config = (Configuration)state;
-                string strMachineState = @"assetID=" + config.AssetNumber + "&state=" + StartPage.currentSystemState.ToString() + "&ticks=" + DateTime.Now.Ticks;
+                string strMachineState = @"assetID=" + config.AssetNumber + "&state=" + SparkRunTime_10586_V1._0.MainPage.currentSystemState.ToString() + "&ticks=" + DateTime.Now.Ticks;
                 byte[] writeBytes = System.Text.Encoding.UTF8.GetBytes(strMachineState);
 
                 using (var stream = await this.file.OpenStreamForWriteAsync())
