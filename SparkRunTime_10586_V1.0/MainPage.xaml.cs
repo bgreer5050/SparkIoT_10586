@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Devices.Gpio;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -252,6 +253,16 @@ namespace SparkRunTime_10586_V1._0
             }
         }
 
+        private void setUpSystem()
+        {
+            cycleLights = new CycleLights();
+            //timeOfSystemStartup = DateTime.UtcNow;
+            //txtblockTime.Text = timeOfSystemStartup.time ToShortDateString();
+            txtSystemStartTime.Text = DateTime.Now.TimeOfDay.ToString();
+            currentSystemState = SystemState.DOWN;
+
+            systemStateMonitor = new System.Threading.Timer(stateMonitorCheck, configuration, 1000, 1000);
+        }
 
         private void setUpBoardIO()
         {
@@ -318,7 +329,7 @@ namespace SparkRunTime_10586_V1._0
 
 
             txtCycleCount.Text = viewModel.TotalNumberOfCycles.ToString();
-            Debug.WriteLine("TOTAL CYCLE COUNT: " + StartPage.totalNumberOfCycles.ToString());
+            Debug.WriteLine("TOTAL CYCLE COUNT: " + MainPage.totalNumberOfCycles.ToString());
             Debug.WriteLine("TOTAL CYCLE COUNT: " + viewModel.TotalNumberOfCycles.ToString());
             //*****************************************************************************************
             //************************    Update Cycle Lights **************************
@@ -565,6 +576,25 @@ namespace SparkRunTime_10586_V1._0
             }
 
         }
+
+        private static void setSystemSateToRun(DateTime time, Configuration config, SparkQueue sparkQueue)
+        {
+            // TODO Conside doing something with an output here
+
+            Debug.WriteLine("RUN RUN RUN RUN");
+
+            currentSystemState = SystemState.RUNNING;
+            timeOfLastSystemStateChange = time;
+            numberOfHeartBeatsSinceLastStateChange = 0;
+            MachineEvent evt = new MachineEvent { AssetID = config.AssetNumber, state = "RUNNING", ticks = DateTime.Now.Ticks.ToString() };
+            sparkQueue.Enqueue(@"assetID=" + config.AssetNumber + "&state=" + evt.state + "&ticks=" + evt.ticks.ToString());
+
+            //+ "&blnNetworkUp=" + network.NetworkUp.ToString() + "&blntimeupdated=" + Program.time.TimeUpdated.ToString());
+        }
+
+
+
+
         private static void setSystemStateToDown(DateTime time, Configuration config, SparkQueue sparkQueue)
         {
 
@@ -598,9 +628,9 @@ namespace SparkRunTime_10586_V1._0
             public string state { get; set; }
             public string ticks { get; set; }
         }
-        private void ClickMe_Click(object sender, RoutedEventArgs e)
-        {
-            this.HelloMessage.Text = "Hello, Windows IoT Core!";
-        }
+        //private void ClickMe_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.HelloMessage.Text = "Hello, Windows IoT Core!";
+        //}
     }
 }
