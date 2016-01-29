@@ -273,6 +273,7 @@ namespace SparkRunTime_10586_V1._0
                 var timeSinceLastHeartbeat = getMillisecondsSinceLastHeartBeat(currTime);
                 if ((configuration.CycleLengthMs * configuration.GracePeriodMultiple) < timeSinceLastHeartbeat)
                 {
+                   // Debug.WriteLine("Cycle Length:" + configuration.CycleLengthMs.ToString() + )
                     //Debug.Print("Change State to Down");
                     setSystemStateToDown(currTime, configuration, sparkQueue);
                 }
@@ -314,7 +315,7 @@ namespace SparkRunTime_10586_V1._0
                 heartBeatPin.SetDriveMode(GpioPinDriveMode.Input);
 
             // Set a debounce timeout to filter out switch bounce noise from a button press
-            heartBeatPin.DebounceTimeout = TimeSpan.FromMilliseconds(50);
+            heartBeatPin.DebounceTimeout = TimeSpan.FromMilliseconds(4);
 
             heartBeatPin.ValueChanged += HeartBeatPin_ValueChanged;
 
