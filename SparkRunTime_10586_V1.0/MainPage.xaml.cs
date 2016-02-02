@@ -316,10 +316,7 @@ namespace SparkRunTime_10586_V1._0
 
             // Set a debounce timeout to filter out switch bounce noise from a button press
             heartBeatPin.DebounceTimeout = TimeSpan.FromMilliseconds(4);
-
             heartBeatPin.ValueChanged += HeartBeatPin_ValueChanged;
-
-
 
         }
 
