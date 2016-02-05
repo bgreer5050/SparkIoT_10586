@@ -315,7 +315,7 @@ namespace SparkRunTime_10586_V1._0
                 heartBeatPin.SetDriveMode(GpioPinDriveMode.Input);
 
             // Set a debounce timeout to filter out switch bounce noise from a button press
-            heartBeatPin.DebounceTimeout = TimeSpan.FromMilliseconds(4);
+            heartBeatPin.DebounceTimeout = TimeSpan.FromMilliseconds(20);
             heartBeatPin.ValueChanged += HeartBeatPin_ValueChanged;
 
         }

@@ -95,6 +95,7 @@ namespace SparkRunTime_10586_V1._0
                     {
                         this.Errors.Add(exc.Message.ToString());
                         success = false;
+                        throw;
                     }
 
 
