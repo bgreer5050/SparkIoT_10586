@@ -77,7 +77,7 @@ namespace SparkRunTime_10586_V1._0
 
         private async void ProcessInboundEvent(object o)
         {
-            _syncLock.Wait();
+            _syncLock.Wait(30000);
 
             try
             {
@@ -115,7 +115,7 @@ namespace SparkRunTime_10586_V1._0
 
         private async void ProcessOutboundEvent(object o)
         {
-            _syncLock.Wait();
+            _syncLock.Wait(30000);
 
             try
             {
@@ -158,10 +158,12 @@ namespace SparkRunTime_10586_V1._0
                 {
 
                     await FileIO.AppendTextAsync(dbFile, line + Environment.NewLine);
+                    Debug.WriteLine("Written to data file: " + line);
                     //    taskGetStreamWriter = dbFile.OpenStreamForWriteAsync().Result;
                 }
                 catch (Exception _exc1)
                 {
+                    Debug.WriteLine("ERROR SQ - Line 166: " + _exc1.Message);
                     result = false;
                 }
 
@@ -170,6 +172,8 @@ namespace SparkRunTime_10586_V1._0
             }
             catch (Exception ex)
             {
+                Debug.WriteLine("ERROR SQ - Line 175: " + ex.Message);
+                Utilities.SparkEmail.Send("ERROR SQ Line 175 " + Configuration.strAssetNumber + " " + ex.Message);
                 result = false;
             }
 
@@ -197,10 +201,12 @@ namespace SparkRunTime_10586_V1._0
             }
             catch (Exception ex)
             {
-                this.Errors.Add("ReadDataFromFile Error");
-                this.Errors.Add(ex.Message.ToString());
-
+                //this.Errors.Add("ReadDataFromFile Error");
+                //this.Errors.Add(ex.Message.ToString());
+                Debug.WriteLine("ERROR SQ - Line 205: " + ex.Message);
                 blnSuccessfullyCheckedFoData = false;
+                Utilities.SparkEmail.Send("ERROR SQ Line 205 " + Configuration.strAssetNumber + " " + ex.Message);
+
             }
             if (line != null && line.Trim().Length > 10)
             {
@@ -215,7 +221,7 @@ namespace SparkRunTime_10586_V1._0
         private System.Threading.SemaphoreSlim _removeDataLock = new SemaphoreSlim(1);
         private async Task<bool> removeDataFromFileAsync(string lineToRemove)
         {
-            _removeDataLock.Wait();
+            _removeDataLock.Wait(30000);
             bool result = false;
 
             StorageFolder folder = Windows.Storage.ApplicationData.Current.LocalFolder;
@@ -248,9 +254,10 @@ namespace SparkRunTime_10586_V1._0
                     result = true;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Debug.WriteLine("ERROR: SQ Line 256 - " + ex.Message);
+                Utilities.SparkEmail.Send("ERROR SQ Line 256 " + Configuration.strAssetNumber + " " + ex.Message);
                 throw;
             }
             _removeDataLock.Release();

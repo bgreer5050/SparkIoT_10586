@@ -8,6 +8,7 @@ namespace SparkRunTime_10586_V1._0
 {
     public class Controller
     {
+        
 
         private string ipAddress;
         private string modelNumber;
@@ -42,10 +43,6 @@ namespace SparkRunTime_10586_V1._0
             get { return revision; }
             set { revision = value; }
         }
-
-
-
-
     }
 
     public class Configuration
@@ -59,16 +56,19 @@ namespace SparkRunTime_10586_V1._0
         public List<string> Errors;
         public List<string> ObjectMessages;
 
+        public static string strAssetNumber;
+
+
         public Configuration()
         {
-            this.AssetNumber = "1005";
-            this._gracePeriodMultiple = 3.0f;
-            this.CycleLengthMs = 20000;
+            this.AssetNumber = "701";
+            this._gracePeriodMultiple = 4.0f;
+            this.CycleLengthMs = 40000;
             this.HeartbeatsRequiredToChangeState = 2;
 
             this.Errors = new List<string>();
             this.ObjectMessages = new List<string>();
-
+            Configuration.strAssetNumber = this.AssetNumber;
         }
 
         public string AssetNumber

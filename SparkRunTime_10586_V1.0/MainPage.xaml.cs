@@ -315,7 +315,7 @@ namespace SparkRunTime_10586_V1._0
                 heartBeatPin.SetDriveMode(GpioPinDriveMode.Input);
 
             // Set a debounce timeout to filter out switch bounce noise from a button press
-            heartBeatPin.DebounceTimeout = TimeSpan.FromMilliseconds(20);
+            heartBeatPin.DebounceTimeout = TimeSpan.FromMilliseconds(12);
             heartBeatPin.ValueChanged += HeartBeatPin_ValueChanged;
 
         }
@@ -583,20 +583,33 @@ namespace SparkRunTime_10586_V1._0
         private static void handleHeartBeat(DateTime time, Controller controller, Configuration config, SparkQueue sparkQueue)
         {
 
-            totalRuntimeMilliseconds += getMillisecondsSinceLastHeartBeat(time);
-            totalNumberOfCycles++;
-            numberOfHeartBeatsSinceLastStateChange++;
-            timeOfLastHeartbeat = time;
-
             TimeSpan ts = time - timeOfLastHeartbeat;
-
-            double totalMillisecondsSinceLastCycle = ts.Ticks / 10000.0;
-
-            if (currentSystemState == SystemState.DOWN &&
-            numberOfHeartBeatsSinceLastStateChange >= config.HeartbeatsRequiredToChangeState &&
-            totalMillisecondsSinceLastCycle < (config.CycleLengthMs * 2.0))
+            if (ts.TotalMilliseconds > 7000)
             {
-                setSystemSateToRun(time, config, sparkQueue);
+                Debug.WriteLine("HANDLING HEART BEAT !");
+                Debug.WriteLine("HANDLING HEART BEAT !");
+                Debug.WriteLine("HANDLING HEART BEAT !");
+
+
+                totalRuntimeMilliseconds += getMillisecondsSinceLastHeartBeat(time);
+                totalNumberOfCycles++;
+                numberOfHeartBeatsSinceLastStateChange++;
+                timeOfLastHeartbeat = time;
+
+
+
+                double totalMillisecondsSinceLastCycle = ts.Ticks / 10000.0;
+
+                if (currentSystemState == SystemState.DOWN &&
+                numberOfHeartBeatsSinceLastStateChange >= config.HeartbeatsRequiredToChangeState &&
+                totalMillisecondsSinceLastCycle < (config.CycleLengthMs * 2.0))
+                {
+                    setSystemSateToRun(time, config, sparkQueue);
+                }
+            }
+            else
+            {
+                Debug.WriteLine("NOT HANDLING HEART BEAT!!!!!!!!!!!!!!!!!!!!!!");
             }
 
         }
