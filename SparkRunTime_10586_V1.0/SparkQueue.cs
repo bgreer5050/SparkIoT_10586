@@ -77,6 +77,7 @@ namespace SparkRunTime_10586_V1._0
 
         private async void ProcessInboundEvent(object o)
         {
+
             _syncLock.Wait(30000);
 
             try
