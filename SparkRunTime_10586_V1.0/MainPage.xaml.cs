@@ -134,13 +134,37 @@ namespace SparkRunTime_10586_V1._0
             powerHandler = new PowerOuttageHandler(configuration);
             network = new Network();
 
-            Utilities.SparkEmail.Send(this.configuration.AssetNumber + " Starting ");
+            string _strIP = GetIPAddress();
+
+            Utilities.SparkEmail.Send(this.configuration.AssetNumber + " - " + _strIP + " Starting ");
 
 
             viewModel = new VM.ViewModel(controller, configuration, cycleLights, network, sparkQueue, this);
 
             //sparkQueue = new SparkQueue();
             sparkQueue.DataReadyForPickUp += SparkQueue_DataReadyForPickUp;
+        }
+
+        private string GetIPAddress()
+        {
+            string strIPAddress = "";
+
+            try
+            {
+                List<string> IpAddresses = new List<string>();
+
+                var hosts = Windows.Networking.Connectivity.NetworkInformation.GetHostNames().ToList();
+                foreach (var host in hosts)
+                {
+                    strIPAddress += host.DisplayName + " - ";
+                }
+            }
+            catch
+            {
+
+            }
+            return strIPAddress;
+           
         }
 
         private async void SetUpMisc(string strPowerOuttagePost)
