@@ -1,0 +1,1 @@
+C:\Users\admin\Downloads\ZumbachPi-master\ZumbachPi-master\ZumbachPi_V2.0\ZumbachPi_V2.0.csproj;arm
