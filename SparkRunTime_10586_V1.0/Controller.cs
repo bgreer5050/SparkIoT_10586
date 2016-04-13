@@ -61,7 +61,7 @@ namespace SparkRunTime_10586_V1._0
 
         public Configuration()
         {
-            this.AssetNumber = "1004";
+            this.AssetNumber = "1005";
             this._gracePeriodMultiple = 3.0f;
             this.CycleLengthMs = 20000;
             this.HeartbeatsRequiredToChangeState = 2;
